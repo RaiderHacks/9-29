@@ -70,4 +70,38 @@ What is this doing?
 - Line 5 makes sure that we got a response from the jokes API before trying to send a joke 
 - Line 7 formats the joke by accessing keys of `setup` and `punchline` from the `joke` object which is formatted as a python dictionary 
 
+Final code for `jokes_bot.py`
+
+```python
+import discord
+import jokes
+
+client = discord.Client()
+
+
+@client.event
+async def on_ready():
+    print('We have logged in as {0.user}'.format(client))
+
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+
+    if message.content.startswith('$hello'):
+        await message.channel.send('Hello!')
+        
+    if message.content.startswith('$joke'):
+        joke = jokes.get_joke()
+
+        if joke == False:
+            await message.channel.send("Couldn't get joke from API. Try again later.")
+        else:
+            await message.channel.send(joke['setup'] + '\n' + joke['punchline'])
+
+client.run('your_bot_token')
+```
+
 Run `python jokes_bot.py` and see if it works in your server 
+
