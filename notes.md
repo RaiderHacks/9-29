@@ -1,4 +1,4 @@
-Jokes API code `jokes.py`
+Jokes API code `jokes.py` from last meeting 
 ```python
 import requests
 
@@ -18,7 +18,7 @@ def get_joke():
 
     return data
 ```
-Discord bot code `jokes_bot.py`
+Discord bot code `jokes_bot.py` from last meeting 
 ```python
 import discord
 
@@ -63,3 +63,11 @@ if message.content.startswith('$joke'):
             await message.channel.send(joke['setup'] + '\n' + joke['punchline'])
 ```
 
+What is this doing? 
+
+- Line 1 checks if the string `$joke` was sent in the discord chat 
+- Line 2 calls the `get_joke()`  function from line 13 of `jokes.py` and saves it to the `joke ` variable 
+- Line 5 makes sure that we got a response from the jokes API before trying to send a joke 
+- Line 7 formats the joke by accessing keys of `setup` and `punchline` from the `joke` object which is formatted as a python dictionary 
+
+Run `python jokes_bot.py` and see if it works in your server 
